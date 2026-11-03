@@ -32,8 +32,9 @@ export function createApp(): Express {
   app.use(express.json({ limit: '1mb' }));
   app.use(express.urlencoded({ extended: true, limit: '1mb' }));
 
-  // API v1 Routes
+  // API Routes (supports both /api/v1 and root paths for resilience)
   app.use('/api/v1', routes);
+  app.use('/', routes);
 
   // Catch 404 Unmatched Routes
   app.use('*', (req, _res, next) => {
